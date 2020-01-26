@@ -34,11 +34,6 @@ void Game::input()
     }
 }
 
-void Game::logic()
-{
-
-}
-
 void Game::update()
 {
     line->update();

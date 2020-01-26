@@ -9,7 +9,6 @@ public:
     Game();
     bool getRunning();
     void input();
-    void logic();
     void update();
     void render();
     void clean();
