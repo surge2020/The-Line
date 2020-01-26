@@ -20,11 +20,21 @@ void Line::createBody()
     std::cout << pointRectY << std::endl;
     std::cout << pointRectX << std::endl;
     std::cout << k << std::endl;
-    for (int x = 0; x < pointRectX; ++x) {
-        float y = k * x;
-        SDL_Rect tempRect = {x, (int)y, 1, 1};
-        body.push_back(tempRect);
+    if (k < 1) {
+        for (int x = 0; x < pointRectX; ++x) {
+            float y = k * x;
+            SDL_Rect tempRect = {x, (int)y, 1, 1};
+            body.push_back(tempRect);
+        }
     }
+    else {
+        for (int y = 0; y < pointRectY; ++y) {
+            float x = y / k;
+            SDL_Rect tempRect = {(int)x, y, 1, 1};
+            body.push_back(tempRect);
+        }
+    }
+    
 }
 
 void Line::update()
