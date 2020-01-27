@@ -1,9 +1,18 @@
 #include "line.h"
 #include <iostream>
+//#include <strstream>
+#include <sstream>
+#include <string>
 
 Line::Line(SDL_Renderer* renderer)
 {
     this->renderer = renderer;
+    pointRectX = 0;
+    pointRectY = 0;
+    k = 0;
+    TTF_Init();
+    font = TTF_OpenFont("res/FreeSans.ttf", 14);
+    color = {255, 255, 255};
 }
 
 void Line::setPoint(float x, float y)
@@ -16,10 +25,7 @@ void Line::setPoint(float x, float y)
 void Line::createBody()
 {
     body.clear();
-    float k = pointRectY / pointRectX;
-    std::cout << pointRectY << std::endl;
-    std::cout << pointRectX << std::endl;
-    std::cout << k << std::endl;
+    k = pointRectY / pointRectX;
     if (k < 1) {
         for (int x = 0; x < pointRectX; ++x) {
             float y = k * x;
@@ -39,7 +45,7 @@ void Line::createBody()
 
 void Line::update()
 {
-    pointRect = {pointRectX, pointRectY, 1, 1};
+    pointRect = {(int)pointRectX, (int)pointRectY, 1, 1};
 }
 
 void Line::render()
@@ -49,5 +55,15 @@ void Line::render()
     for (SDL_Rect bodyPoint : body) {
         SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
         SDL_RenderFillRect(renderer, &bodyPoint);
-    }
+    }   
+
+    std::stringstream stream;
+    stream << "Y: " << pointRectY << " X: " << pointRectX << " K: " << k;
+    SDL_Surface* surface = 
+        TTF_RenderText_Solid(font, stream.str().c_str(), color);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Rect rect = {0, 480, 300, 20};
+    SDL_RenderCopy(renderer, texture, NULL, &rect);
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
 }
