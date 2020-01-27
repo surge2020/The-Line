@@ -11,7 +11,7 @@ Line::Line(SDL_Renderer* renderer)
     pointRectY = 0;
     k = 0;
     TTF_Init();
-    font = TTF_OpenFont("res/FreeSans.ttf", 14);
+    font = TTF_OpenFont("res/FreeSans.ttf", 24);
     color = {255, 255, 255};
 }
 
