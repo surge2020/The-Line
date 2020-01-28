@@ -1,6 +1,4 @@
 #include "line.h"
-#include <iostream>
-//#include <strstream>
 #include <sstream>
 #include <string>
 
